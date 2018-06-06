@@ -22,8 +22,8 @@ public class ProductInformationParser {
         ProductInformation productInformation = new ProductInformation();
         Document doc = Jsoup.parse(html);
         
-        productInformation.setTitle(doc.title());
-        productInformation.setObjectId(Integer.parseInt(doc.select("#object_id").val()));
+        productInformation.setProductId(doc.select(".detail-product-sku").text());
+        productInformation.setProductName(doc.select("#object_id").val());
         feed.setCategory(doc.select(".detail-content .active a").text());
         feed.setPublishedDate(doc.select("meta[name=pubdate]").attr("content"));
         List<String> tags = new ArrayList<String>();

@@ -20,10 +20,10 @@ public class ProductInformation {
     private String productName;
     private Double productPrice;
     private String productBrand;
-    private String productCatelogy;
+    private List<String> productCatelogies;
     private List<String> productImages;
     private List<String> productDescriptions;
-    private HashMap<String, String> productSpecifications;
+    private ProductSpecification productSpecifications;
     private String productUrl;
 
     public String getProductId() {
@@ -58,14 +58,14 @@ public class ProductInformation {
         this.productBrand = productBrand;
     }
 
-    public String getProductCatelogy() {
-        return productCatelogy;
+    public List<String> getProductCatelogies() {
+        return productCatelogies;
     }
 
-    public void setProductCatelogy(String productCatelogy) {
-        this.productCatelogy = productCatelogy;
+    public void setProductCatelogies(List<String> productCatelogies) {
+        this.productCatelogies = productCatelogies;
     }
-    
+
     public List<String> getProductImages() {
         return productImages;
     }
@@ -82,11 +82,11 @@ public class ProductInformation {
         this.productDescriptions = productDescriptions;
     }
 
-    public HashMap<String, String> getProductSpecifications() {
+    public ProductSpecification getProductSpecifications() {
         return productSpecifications;
     }
 
-    public void setProductSpecification(HashMap<String, String> productSpecifications) {
+    public void setProductSpecifications(ProductSpecification productSpecifications) {
         this.productSpecifications = productSpecifications;
     }
 
@@ -105,7 +105,7 @@ public class ProductInformation {
         document.append("productName", this.productName);
         document.append("productPrice", this.productPrice);
         document.append("productBrand", this.productBrand);
-        document.append("productCatelogy", this.productCatelogy);
+        document.append("productCatelogy", this.productCatelogies);
         document.append("productImages", this.productImages);
         document.append("productDescriptions", this.productDescriptions);
         document.append("productSpecifications", this.productSpecifications);
