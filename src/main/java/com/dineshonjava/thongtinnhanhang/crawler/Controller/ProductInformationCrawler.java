@@ -6,6 +6,7 @@
 package com.dineshonjava.thongtinnhanhang.crawler.Controller;
 
 import com.dineshonjava.thongtinnhanhang.crawler.POJO.ProductInformation;
+import com.dineshonjava.thongtinnhanhang.crawler.ProductInformationCrawlController;
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
@@ -62,8 +63,8 @@ public class ProductInformationCrawler extends WebCrawler {
             String html = htmlParseData.getHtml();
             ProductInformationParser productInformationParser = new ProductInformationParser();
             productInformation = productInformationParser.parseFromHTML(html);
-            productInformation.setFeedUrl(url);
-            ProductInformationCrawler.mongoDBService.insertFeed(productInformation);
+            productInformation.setProductUrl(url);
+            ProductInformationCrawlController.mongoDBService.insertFeed(productInformation);
             out.println(" -- parsed");
         }
         else
