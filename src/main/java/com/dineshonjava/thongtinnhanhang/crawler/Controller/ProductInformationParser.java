@@ -22,8 +22,35 @@ public class ProductInformationParser {
         ProductInformation productInformation = new ProductInformation();
         Document doc = Jsoup.parse(html);
         
-        productInformation.setProductId(doc.select(".detail-product-sku").text());
-        productInformation.setProductName(doc.select("#object_id").val());
+        //Parse productId
+        Element productId = doc.selectFirst("div.detail-product-sku b");
+        productInformation.setProductId(productId.text());
+        
+        //Parse productName
+        Element productName = doc.selectFirst("h3.detail-product-name");
+        productInformation.setProductName(productName.text());
+
+        //Parse productPrice
+        Element productPrice = doc.selectFirst("div.detail-product-old-price");
+        productInformation.setProductPrice(Integer.parseInt(productPrice.text()));
+        
+        //Parse productDescription
+        Element productDescription = doc.selectFirst("div.detail-product-desc div.detail-product-desc-content");
+        productInformation.setProductDescription(productDescription.text());
+        
+        //Parse productCatelogies   
+        Elements productCatelogies = doc.select("div.tek-breadcrumb div.tek-breadcrumb-content a[title]");
+        productCatelogies.first().remove();
+        List<String> catelogies = new ArrayList<String>();
+        for(Element productCatelogy: productCatelogies){
+            String catelogy = productCatelogy.text();
+            catelogies.add(catelogy);
+        }
+        productInformation.setProductCatelogies(catelogies);
+        
+        //Parse productImages
+        Elements imageLinks = doc.select("div.detail-gallery-img-block div.detail-gallery-images img[src~=(?i)\\\\.(png|jpe?g|gif)]");
+        
         feed.setCategory(doc.select(".detail-content .active a").text());
         feed.setPublishedDate(doc.select("meta[name=pubdate]").attr("content"));
         List<String> tags = new ArrayList<String>();

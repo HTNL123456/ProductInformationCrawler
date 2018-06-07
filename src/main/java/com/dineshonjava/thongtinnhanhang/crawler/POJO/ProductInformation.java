@@ -18,11 +18,11 @@ import java.util.List;
 public class ProductInformation {
     private String productId;
     private String productName;
-    private Double productPrice;
+    private Integer productPrice;
     private String productBrand;
     private List<String> productCatelogies;
     private List<String> productImages;
-    private List<String> productDescriptions;
+    private String productDescription;
     private ProductSpecification productSpecifications;
     private String productUrl;
 
@@ -42,11 +42,11 @@ public class ProductInformation {
         this.productName = productName;
     }
 
-    public Double getProductPrice() {
+    public Integer getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(Double productPrice) {
+    public void setProductPrice(Integer productPrice) {
         this.productPrice = productPrice;
     }
 
@@ -74,12 +74,12 @@ public class ProductInformation {
         this.productImages = productImages;
     }
 
-    public List<String> getProductDescriptions() {
-        return productDescriptions;
+    public String getProductDescription() {
+        return productDescription;
     }
 
-    public void setProductDescriptions(List<String> productDescriptions) {
-        this.productDescriptions = productDescriptions;
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
     }
 
     public ProductSpecification getProductSpecifications() {
@@ -107,7 +107,7 @@ public class ProductInformation {
         document.append("productBrand", this.productBrand);
         document.append("productCatelogy", this.productCatelogies);
         document.append("productImages", this.productImages);
-        document.append("productDescriptions", this.productDescriptions);
+        document.append("productDescription", this.productDescription);
         document.append("productSpecifications", this.productSpecifications);
           
         return document;
