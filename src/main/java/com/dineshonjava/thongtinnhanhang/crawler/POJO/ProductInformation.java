@@ -23,7 +23,7 @@ public class ProductInformation {
     private List<String> productCatelogies;
     private List<String> productImages;
     private String productDescription;
-    private ProductSpecification productSpecifications;
+    private HashMap<String, String> productSpecifications;
     private String productUrl;
 
     public String getProductId() {
@@ -82,11 +82,11 @@ public class ProductInformation {
         this.productDescription = productDescription;
     }
 
-    public ProductSpecification getProductSpecifications() {
+    public HashMap<String, String> getProductSpecifications() {
         return productSpecifications;
     }
 
-    public void setProductSpecifications(ProductSpecification productSpecifications) {
+    public void setProductSpecifications(HashMap<String, String> productSpecifications) {
         this.productSpecifications = productSpecifications;
     }
 
@@ -105,10 +105,10 @@ public class ProductInformation {
         document.append("productName", this.productName);
         document.append("productPrice", this.productPrice);
         document.append("productBrand", this.productBrand);
-        document.append("productCatelogy", this.productCatelogies);
-        document.append("productImages", this.productImages);
+        document.append("productCatelogies", this.productCatelogies);
+        document.append("productImage", this.productImages);
         document.append("productDescription", this.productDescription);
-        document.append("productSpecifications", this.productSpecifications);
+        document.append("productSpecification", this.productSpecifications);
           
         return document;
     }
