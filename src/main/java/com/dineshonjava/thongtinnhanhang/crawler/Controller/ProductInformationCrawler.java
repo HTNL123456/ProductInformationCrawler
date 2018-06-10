@@ -64,7 +64,7 @@ public class ProductInformationCrawler extends WebCrawler {
             ProductInformationParser productInformationParser = new ProductInformationParser();
             productInformation = productInformationParser.parseFromHTML(html);
             productInformation.setProductUrl(url);
-            ProductInformationCrawlController.mongoDBService.insertFeed(productInformation);
+            ProductInformationCrawlController.mongoDBService.insertProductInformation(productInformation);
             out.println(" -- parsed");
         }
         else

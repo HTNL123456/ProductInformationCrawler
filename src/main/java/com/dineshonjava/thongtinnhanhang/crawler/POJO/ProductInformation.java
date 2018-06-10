@@ -6,8 +6,8 @@
 package com.dineshonjava.thongtinnhanhang.crawler.POJO;
 
 import com.google.gson.Gson;
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
-import com.mongodb.util.JSON;
 import java.util.HashMap;
 import java.util.List;
 
@@ -108,8 +108,8 @@ public class ProductInformation {
         document.append("productCatelogies", this.productCatelogies);
         document.append("productImage", this.productImages);
         document.append("productDescription", this.productDescription);
-        document.append("productSpecification", this.productSpecifications);
-          
+        document.append("productSpecifications", this.productSpecifications);
+               
         return document;
     }
 }

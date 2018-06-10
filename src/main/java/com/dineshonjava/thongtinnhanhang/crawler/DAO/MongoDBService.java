@@ -72,29 +72,29 @@ public class MongoDBService {
 
         this.db = this.mongoClient.getDatabase(DB_NAME);
 
-        boolean hasFeedsCollection = false;
+        boolean hasCollection = false;
 
         MongoCursor<String> iterator = this.db.listCollectionNames().iterator();
 
         while (iterator.hasNext()) {
-            if (iterator.next().equals("productInformations")) {
-                hasFeedsCollection = true;
+            if (iterator.next().equals("ProductInformation")) {
+                hasCollection = true;
                 break;
             }
         }
 
-        if (!hasFeedsCollection) {
-            this.db.createCollection("productInformations");
+        if (!hasCollection) {
+            this.db.createCollection("ProductInformation");
         }
 
-        this.collection = this.db.getCollection("productInformations");
+        this.collection = this.db.getCollection("ProductInformation");
     }
 
     public static MongoDBService getInstance() {
         return instance;
     }
 
-    public void insertFeed(ProductInformation thongTinNhanHang) {
-        this.collection.insertOne(thongTinNhanHang.getDocument());
+    public void insertProductInformation(ProductInformation productInformation) {
+        this.collection.insertOne(productInformation.getDocument());
     }
 }

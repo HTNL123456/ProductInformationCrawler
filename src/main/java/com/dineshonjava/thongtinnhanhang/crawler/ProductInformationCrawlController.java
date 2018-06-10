@@ -78,8 +78,8 @@ public class ProductInformationCrawlController {
         config.setIncludeBinaryContentInCrawling(false);
 
         /*
-         * Thiáº¿t láº­p nÃ y cho phÃ©p crawl tiáº¿p tá»¥c tiáº¿n trÃ¬nh cÅ©
-         * Náº¿u muá»‘n crawl má»›i pháº£i xÃ³a dá»¯ liá»‡u thÆ° má»¥c lÆ°u trá»¯ Ä‘i 
+         * Thiết lập này cho phép crawl tiếp tục tiến trình cũ
+         * Nếu muốn crawl mới phải xóa dữ liệu thư mục lưu trữ đi 
          */
         config.setResumableCrawling(true);
 
@@ -97,7 +97,7 @@ public class ProductInformationCrawlController {
         /*
          * Seed URL, link URL duyệt để crawl
          */
-        
+        controller.addSeed(crawlStorageFolder);
         
         /*
          * Bắt đầu crawl
