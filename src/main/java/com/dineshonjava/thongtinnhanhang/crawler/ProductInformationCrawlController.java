@@ -97,8 +97,11 @@ public class ProductInformationCrawlController {
         /*
          * Seed URL, link URL duyệt để crawl
          */
-        controller.addSeed(crawlStorageFolder);
-        
+        controller.addSeed("https://phongvu.vn/");
+        controller.addSeed("https://phongvu.vn/chuot-ban-phim-ban-di/chuot-choi-game/razer/chuot-choi-game-razer-naga-epic-chroma-8200-dpi-12-buttons-black-rz01-01230100-r3u1.html");
+        controller.addSeed("https://phongvu.vn/thiet-bi-am-thanh/tai-nghe/tai-nghe-chup-tai/tai-nghe-kingston-cloud-stinger-over-ear-2-1-jack-3-5mm-den-kth0004.html");
+        controller.addSeed("https://phongvu.vn/thuong-hieu/asus/man-hinh-asus/man-hinh-lcd-asus-27-vz27vq.html");
+        controller.addSeed("https://phongvu.vn/laptop/laptop-dell/dell-inspiron/may-xach-tay-laptop-dell-inspiron-13-5379-jyn0n1-xam.html");
         /*
          * Bắt đầu crawl
          */

@@ -5,11 +5,10 @@
  */
 package com.dineshonjava.thongtinnhanhang.crawler.POJO;
 
-import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
 import java.util.HashMap;
 import java.util.List;
+import org.bson.Document;
 
 /**
  *
@@ -98,17 +97,20 @@ public class ProductInformation {
         this.productUrl = productUrl;
     }
     
-    public org.bson.Document getDocument(){
-        org.bson.Document document = new org.bson.Document();
+    public Document getDocument(){
+        Document document = new Document();
         document.append("productId", this.productId);
         document.append("productUrl",this.productUrl);
         document.append("productName", this.productName);
         document.append("productPrice", this.productPrice);
         document.append("productBrand", this.productBrand);
-        document.append("productCatelogies", this.productCatelogies);
+        document.append("productCatelogy", this.productCatelogies);
         document.append("productImage", this.productImages);
         document.append("productDescription", this.productDescription);
-        document.append("productSpecifications", this.productSpecifications);
+//        document.append("productSpecification", this.productSpecifications);
+        
+        BasicDBObject productDesc = new BasicDBObject(this.productSpecifications);
+        document.append("productSpecification", productDesc);
                
         return document;
     }
