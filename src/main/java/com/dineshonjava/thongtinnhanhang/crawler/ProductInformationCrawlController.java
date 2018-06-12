@@ -28,8 +28,8 @@ public class ProductInformationCrawlController {
         /*
          *ThÆ° má»¥c Ä‘á»ƒ lÆ°u cache crawl
          */
-        String crawlStorageFolder = System.getProperty("java.io.tmpdir");
-
+//        String crawlStorageFolder = System.getProperty("java.io.tmpdir");
+        String crawlStorageFolder = "/home/darryl.tran/CrawlerProject";
          /*
          *Số lượng thread khởi tạo để chạy crawl
          */
@@ -52,7 +52,7 @@ public class ProductInformationCrawlController {
         }
 
 
-
+        logger.info("Initialize crawl config.");
         CrawlConfig config = new CrawlConfig();
 
         config.setCrawlStorageFolder(crawlStorageFolder);
@@ -105,6 +105,7 @@ public class ProductInformationCrawlController {
         /*
          * Bắt đầu crawl
          */
+        out.println("\nBegin crawl...");
         controller.start(ProductInformationCrawler.class, numberOfCrawlers);
 
     }

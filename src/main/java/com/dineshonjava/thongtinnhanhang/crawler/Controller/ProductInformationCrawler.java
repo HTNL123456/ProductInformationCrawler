@@ -36,7 +36,7 @@ public class ProductInformationCrawler extends WebCrawler {
     
     private static final String DOMAIN = "https://phongvu.vn/";
     private static final Pattern NEWS_PAGE = Pattern.compile(".*/\\w+\\.html");
-    private static final Pattern TAGS_PAGES = Pattern.compile(".*phongvu\\.vn\\/((catelogy|product).*");
+    private static final Pattern TAGS_PAGES = Pattern.compile(".*phongvu\\.vn\\/(catelogy|product).*");
 
     @Override
     public boolean shouldVisit(Page referringPage, WebURL url) {

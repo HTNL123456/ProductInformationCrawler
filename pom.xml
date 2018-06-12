@@ -28,7 +28,7 @@
                 <version>1.2.1</version>
                 <configuration>
                     <executable>java</executable>
-                    <mainClass>com.dineshonjava.sportnews.crawler.ThongTinNhanHangCrawlController</mainClass>
+                    <mainClass>com.dineshonjava.thongtinnhanhang.crawler.ProductInformationCrawlController</mainClass>
                 </configuration>
             </plugin>
             <plugin>
@@ -44,7 +44,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.dineshonjava.sportnews.crawler.ThongTinNhanHangCrawlController</mainClass>
+                                    <mainClass>com.dineshonjava.thongtinnhanhang.crawler.ProductInformationCrawlController</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
@@ -61,7 +61,7 @@
                             </excludes>
                         </filter>
                     </filters>
-                    <finalName>SportNewsCrawler</finalName>
+                    <finalName>ProductInformationCrawler</finalName>
                 </configuration>
             </plugin>
         </plugins>
@@ -91,7 +91,7 @@
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>bson</artifactId>
-            <version>3.6.3</version>
+            <version>3.6.4</version>
         </dependency>
         <dependency>
             <groupId>org.jsoup</groupId>
@@ -101,7 +101,12 @@
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongodb-driver</artifactId>
-            <version>3.7.0</version>
+            <version>3.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.7.1</version>
         </dependency>
         <dependency>
             <groupId>javax.ws.rs</groupId>
