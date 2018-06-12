@@ -33,7 +33,7 @@ public class ProductInformationCrawlController {
          /*
          *Số lượng thread khởi tạo để chạy crawl
          */
-        int numberOfCrawlers = 5;
+        int numberOfCrawlers = 10;
 
         if (args.length != 2) {
 
@@ -81,7 +81,7 @@ public class ProductInformationCrawlController {
          * Thiết lập này cho phép crawl tiếp tục tiến trình cũ
          * Nếu muốn crawl mới phải xóa dữ liệu thư mục lưu trữ đi 
          */
-        config.setResumableCrawling(true);
+        config.setResumableCrawling(false);
 
         /*
          * Các biến cần thiết
@@ -97,7 +97,7 @@ public class ProductInformationCrawlController {
         /*
          * Seed URL, link URL duyệt để crawl
          */
-        controller.addSeed("https://phongvu.vn/");
+//        controller.addSeed("https://phongvu.vn/");
         controller.addSeed("https://phongvu.vn/chuot-ban-phim-ban-di/chuot-choi-game/razer/chuot-choi-game-razer-naga-epic-chroma-8200-dpi-12-buttons-black-rz01-01230100-r3u1.html");
         controller.addSeed("https://phongvu.vn/thiet-bi-am-thanh/tai-nghe/tai-nghe-chup-tai/tai-nghe-kingston-cloud-stinger-over-ear-2-1-jack-3-5mm-den-kth0004.html");
         controller.addSeed("https://phongvu.vn/thuong-hieu/asus/man-hinh-asus/man-hinh-lcd-asus-27-vz27vq.html");
