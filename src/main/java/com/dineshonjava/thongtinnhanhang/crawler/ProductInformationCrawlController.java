@@ -29,7 +29,7 @@ public class ProductInformationCrawlController {
          *ThÆ° má»¥c Ä‘á»ƒ lÆ°u cache crawl
          */
 //        String crawlStorageFolder = System.getProperty("java.io.tmpdir");
-        String crawlStorageFolder = "/home/darryl.tran/CrawlerProject";
+        String crawlStorageFolder = "A:\\J2EE\\ThongTinNhanHang-Crawler\\Data";
          /*
          *Số lượng thread khởi tạo để chạy crawl
          */

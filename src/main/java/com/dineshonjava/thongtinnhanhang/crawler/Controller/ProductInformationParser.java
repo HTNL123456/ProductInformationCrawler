@@ -9,7 +9,10 @@ import com.dineshonjava.thongtinnhanhang.crawler.POJO.ProductInformation;
 import static java.lang.System.out;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -40,7 +43,7 @@ public class ProductInformationParser {
         }
 
         //Parse productPrice
-        Element productPrice = doc.selectFirst("div.detail-product-old-price");
+        Element productPrice = doc.selectFirst("div.detail-product-final-price");
         if (productPrice != null) {
             productInformation.setProductPrice(productPrice.text());
             out.println("\nproductPrice: " + productInformation.getProductPrice());
@@ -54,49 +57,41 @@ public class ProductInformationParser {
         }
 
         //Parse productCatelogies   
-        Elements productCatelogies = doc.select("div.tek-breadcrumb div.tek-breadcrumb-content");
+        Elements productCatelogies = doc.select("div.breadcrumbs a");
         if (productCatelogies != null) {
+            ArrayList<String> catelogies = new ArrayList<String>();
             productCatelogies.remove(0);
-            List<String> catelogies = new ArrayList<String>();
-            for (Element productCatelogy : productCatelogies.select("a")) {
+            for (Element productCatelogy : productCatelogies) {
                 String catelogy = productCatelogy.text();
                 catelogies.add(catelogy);
             }
-
-            for (String catelogy : catelogies) {
+            productInformation.setProductCatelogies(catelogies);
+            for (String catelogy : productInformation.getProductCatelogies()) {
                 out.println("\nList catelogy: " + catelogy);
             }
-
-            productInformation.setProductCatelogies(catelogies);
-
-//            for (String catelogy : productInformation.getProductCatelogies()) {
-//                out.println("\nList catelogy: " + catelogy);
-//            }
         }
 
         //Parse productImage
-        Elements imageLinks = doc.select("div#myModal div.modal-content" /*img[src~=(?i)\\\\.(png|jpe?g|gif)]"*/);
+        Elements imageLinks = doc.select("div#myModal div.modal-content div.mySlides" /*img[src~=(?i)\\\\.(png|jpe?g|gif)]"*/);
+        List<String> links = new ArrayList<String>();
         if (imageLinks != null) {
-            List<String> links = new ArrayList<String>();
             for (Element imageLink : imageLinks) {
-                String link = imageLink.select("div.mySlides img[src~=(?i)\\\\\\\\.(png|jpe?g|gif)]").attr("src");
+                String link = imageLink.select("img").attr("src");
                 links.add(link);
             }
-            for (String url : links) {
+            productInformation.setProductImages(links);
+            for (String url : productInformation.getProductImages()) {
                 out.println("\nList image url: " + url);
             }
-            productInformation.setProductImages(links);
-//            for(String url : productInformation.getProductImages()){
-//                out.println("\nList image url: " + url);
-//            }
         }
 
         //Parse productSpecification + productBrand
-        Elements productSpecifications = doc.select("div.attributePopup div.modal-dialog div.modal-content div.modal-body table.attribute-table tbody");
+        Elements productSpecifications = doc.select("div#attributePopup div.modal-dialog div.modal-content div.modal-body table.table.attribute-table tbody tr");
         if (productSpecifications != null) {
             //Parse productBrand
-            Element productBrand = productSpecifications.get(1).selectFirst("tr td.attribute-value");
+            Element productBrand = productSpecifications.get(1).selectFirst("td.attribute-value");
             productInformation.setProductBrand(productBrand.text());
+            out.println("\nproductBrand: " + productInformation.getProductBrand());
 
             //Specifications  
             HashMap<String, String> specifications = new HashMap<String, String>();
@@ -106,6 +101,14 @@ public class ProductInformationParser {
                 specifications.put(label, value);
             }
             productInformation.setProductSpecifications(specifications);
+
+            Set set = productInformation.getProductSpecifications().entrySet();
+            Iterator iterator = set.iterator();
+            while (iterator.hasNext()) {
+                Map.Entry mentry = (Map.Entry) iterator.next();
+                System.out.print(mentry.getKey() + "\t");
+                System.out.println(mentry.getValue());
+            }
         }
 
         return productInformation;
