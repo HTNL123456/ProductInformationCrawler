@@ -6,6 +6,7 @@
 package com.dineshonjava.thongtinnhanhang.crawler.Controller;
 
 import com.dineshonjava.thongtinnhanhang.crawler.POJO.ProductInformation;
+import static java.lang.System.out;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,37 +29,49 @@ public class ProductInformationParser {
         Element productId = doc.selectFirst("div.detail-product-sku b");
         if (productId != null) {
             productInformation.setProductId(productId.text());
+            out.println("\nproductId: " + productInformation.getProductId());
         }
 
         //Parse productName
-        Element productName = doc.selectFirst("h3.detail-product-name");
+        Element productName = doc.selectFirst("h1.detail-product-name");
         if (productName != null) {
             productInformation.setProductName(productName.text());
+            out.println("\nproductName: " + productInformation.getProductName());
         }
 
         //Parse productPrice
         Element productPrice = doc.selectFirst("div.detail-product-old-price");
         if (productPrice != null) {
-            productInformation.setProductPrice(Integer.parseInt(productPrice.text()));
+            productInformation.setProductPrice(productPrice.text());
+            out.println("\nproductPrice: " + productInformation.getProductPrice());
         }
 
         //Parse productDescription
         Element productDescription = doc.selectFirst("div.detail-product-desc div.detail-product-desc-content");
         if (productDescription != null) {
             productInformation.setProductDescription(productDescription.text());
+            out.println("\nproductDesc: " + productInformation.getProductDescription());
         }
 
         //Parse productCatelogies   
-        Elements productCatelogies = doc.select("div.tek-breadcrumb div.tek-breadcrumb-content a[href]");
+        Elements productCatelogies = doc.select("div.tek-breadcrumb div.tek-breadcrumb-content");
         if (productCatelogies != null) {
             productCatelogies.remove(0);
             List<String> catelogies = new ArrayList<String>();
-            for (Element productCatelogy : productCatelogies) {
+            for (Element productCatelogy : productCatelogies.select("a")) {
                 String catelogy = productCatelogy.text();
                 catelogies.add(catelogy);
             }
+
+            for (String catelogy : catelogies) {
+                out.println("\nList catelogy: " + catelogy);
+            }
+
             productInformation.setProductCatelogies(catelogies);
 
+//            for (String catelogy : productInformation.getProductCatelogies()) {
+//                out.println("\nList catelogy: " + catelogy);
+//            }
         }
 
         //Parse productImage
@@ -69,7 +82,13 @@ public class ProductInformationParser {
                 String link = imageLink.select("div.mySlides img[src~=(?i)\\\\\\\\.(png|jpe?g|gif)]").attr("src");
                 links.add(link);
             }
+            for (String url : links) {
+                out.println("\nList image url: " + url);
+            }
             productInformation.setProductImages(links);
+//            for(String url : productInformation.getProductImages()){
+//                out.println("\nList image url: " + url);
+//            }
         }
 
         //Parse productSpecification + productBrand

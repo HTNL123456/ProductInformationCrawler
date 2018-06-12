@@ -17,7 +17,7 @@ import org.bson.Document;
 public class ProductInformation {
     private String productId;
     private String productName;
-    private Integer productPrice;
+    private String productPrice;
     private String productBrand;
     private List<String> productCatelogies;
     private List<String> productImages;
@@ -41,11 +41,11 @@ public class ProductInformation {
         this.productName = productName;
     }
 
-    public Integer getProductPrice() {
+    public String getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(Integer productPrice) {
+    public void setProductPrice(String productPrice) {
         this.productPrice = productPrice;
     }
 

@@ -11,8 +11,13 @@ import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import edu.uci.ics.crawler4j.url.WebURL;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import static java.lang.System.out;
+import java.util.logging.Level;
 import java.util.regex.Pattern;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,7 +46,7 @@ public class ProductInformationCrawler extends WebCrawler {
     @Override
     public boolean shouldVisit(Page referringPage, WebURL url) {
         String href = url.getURL().toLowerCase();
-        
+
         return !FILTERS.matcher(href).matches()
                 && href.startsWith(DOMAIN)
                 && !href.contains("/landing")
@@ -52,8 +57,7 @@ public class ProductInformationCrawler extends WebCrawler {
                 && !href.contains("/media")
                 && !href.contains("/skin")
                 && !href.contains(".cat")
-                && !href.contains("/checkout")
-                ;
+                && !href.contains("/checkout");
     }
 
     @Override
@@ -69,15 +73,15 @@ public class ProductInformationCrawler extends WebCrawler {
 
         if (page.getParseData() instanceof HtmlParseData) {
             ProductInformation productInformation;
+            out.println("\nStart get html...");
             HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
             String html = htmlParseData.getHtml();
-            if(html == null)
-            {
-                out.println("\nHtml is null...");
-            }
+            out.println("\nGet html successful...");
             ProductInformationParser productInformationParser = new ProductInformationParser();
+            out.println("\nParsing data...");
             productInformation = productInformationParser.parseFromHTML(html);
             productInformation.setProductUrl(url);
+            out.println("\nParsing data complete...");
             ProductInformationCrawlController.mongoDBService.insertProductInformation(productInformation);
             out.println(" -- parsed");
         } else {

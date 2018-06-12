@@ -33,7 +33,7 @@ public class ProductInformationCrawlController {
          /*
          *Số lượng thread khởi tạo để chạy crawl
          */
-        int numberOfCrawlers = 10;
+        int numberOfCrawlers = 1;
 
         if (args.length != 2) {
 
