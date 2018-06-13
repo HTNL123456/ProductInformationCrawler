@@ -6,6 +6,7 @@
 package com.dineshonjava.thongtinnhanhang.crawler.POJO;
 
 import com.mongodb.BasicDBObject;
+import static java.lang.System.out;
 import java.util.HashMap;
 import java.util.List;
 import org.bson.Document;
@@ -15,6 +16,7 @@ import org.bson.Document;
  * @author Huy Thinh
  */
 public class ProductInformation {
+
     private String productId;
     private String productName;
     private String productPrice;
@@ -96,22 +98,29 @@ public class ProductInformation {
     public void setProductUrl(String productUrl) {
         this.productUrl = productUrl;
     }
-    
-    public Document getDocument(){
+
+    public Document getDocument() {
         Document document = new Document();
+
         document.append("productId", this.productId);
-        document.append("productUrl",this.productUrl);
+
+        document.append("productUrl", this.productUrl);
+
         document.append("productName", this.productName);
+
         document.append("productPrice", this.productPrice);
+
         document.append("productBrand", this.productBrand);
-        document.append("productCatelogy", this.productCatelogies);
-        document.append("productImage", this.productImages);
+
         document.append("productDescription", this.productDescription);
-//        document.append("productSpecification", this.productSpecifications);
-        
+
+        document.append("productCatelogy", this.productCatelogies);
+
+        document.append("productImage", this.productImages);
+
         BasicDBObject productDesc = new BasicDBObject(this.productSpecifications);
         document.append("productSpecification", productDesc);
-               
+
         return document;
     }
 }

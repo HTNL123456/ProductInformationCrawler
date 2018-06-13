@@ -29,11 +29,11 @@ public class ProductInformationCrawlController {
          *ThÆ° má»¥c Ä‘á»ƒ lÆ°u cache crawl
          */
 //        String crawlStorageFolder = System.getProperty("java.io.tmpdir");
-        String crawlStorageFolder = "A:\\J2EE\\ThongTinNhanHang-Crawler\\Data";
+        String crawlStorageFolder = "/home/darryl.tran/CrawlerProject";
          /*
          *Số lượng thread khởi tạo để chạy crawl
          */
-        int numberOfCrawlers = 1;
+        int numberOfCrawlers = 10;
 
         if (args.length != 2) {
 
@@ -107,6 +107,8 @@ public class ProductInformationCrawlController {
          */
         out.println("\nBegin crawl...");
         controller.start(ProductInformationCrawler.class, numberOfCrawlers);
+        controller.waitUntilFinish();
+        out.println("\nFinished crawl...");
 
     }
 }

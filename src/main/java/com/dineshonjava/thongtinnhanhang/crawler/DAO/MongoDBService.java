@@ -8,6 +8,7 @@ package com.dineshonjava.thongtinnhanhang.crawler.DAO;
 import com.dineshonjava.thongtinnhanhang.crawler.POJO.ProductInformation;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
+import com.mongodb.MongoException;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -23,6 +24,7 @@ import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.net.UnknownHostException;
+import java.util.concurrent.CountDownLatch;
 
 /**
  *
@@ -36,8 +38,8 @@ public class MongoDBService {
     private static String DB_NAME;
 
     private MongoClient mongoClient;
-    private MongoDatabase db;
-    private MongoCollection<Document> collection;
+    private MongoDatabase mongoDatabase;
+    private MongoCollection<Document> productCollection;
     private static final MongoDBService instance = new MongoDBService();
 
     private MongoDBService() {
@@ -86,7 +88,7 @@ public class MongoDBService {
 
         try {
             out.println("\nStart get database...");
-            this.db = this.mongoClient.getDatabase(DB_NAME);
+            this.mongoDatabase = this.mongoClient.getDatabase(DB_NAME);
         } catch (Exception e) {
             System.out.println("\nGet database failed...");
             e.printStackTrace();
@@ -97,35 +99,45 @@ public class MongoDBService {
 
         try {
             out.println("\nGet database collection...");
-//            MongoCursor<String> iterator = this.db.listCollectionNames().iterator();
-//
-//            while (iterator.hasNext()) {
-//                if (iterator.next().equals("ProductInformation")) {
-//                    hasCollection = true;
-//                    System.out.println("\nGet database collection successfull...");
-//                    break;
-//                }
-//            }
-            this.collection = this.db.getCollection("ProductInformation");
-            out.println("\nGet database collection successfull...");
+            MongoCursor<String> iterator = this.mongoDatabase.listCollectionNames().iterator();
+
+            while (iterator.hasNext()) {               
+                if (iterator.next().equals("ProductInformation")) {
+                    hasCollection = true;
+                    out.println("\nFind collection...");
+                    break;
+                }
+            }
         } catch (Exception e) {
             out.println("\nGet database collection failed...");
             e.printStackTrace();
         }
 
         // If not found collection
-//        if (!hasCollection) {
-//            this.db.createCollection("ProductInformation");
-//        }
-//        this.collection = this.db.getCollection("ProductInformation");
-        System.out.println("\nFinish initialize database...");
+        if (!hasCollection) {
+            out.println("\nCreate collection...");
+            this.mongoDatabase.createCollection("ProductInformation");
+        }
+        this.productCollection = this.mongoDatabase.getCollection("ProductInformation");
+        out.println("\nGet database collection successfull...");
+        
+        out.println("\nFinish initialize database...");
     }
 
     public static MongoDBService getInstance() {
         return instance;
     }
 
-    public void insertProductInformation(ProductInformation productInformation) {
-        this.collection.insertOne(productInformation.getDocument());
+    public void insertProductInformation(ProductInformation productInformation) {                
+        try {
+            out.println("\nStart insert data into DB...");
+            this.productCollection.insertOne(productInformation.getDocument());
+            
+            out.println("\nComplete insert data into DB...");
+        } catch (MongoException e) {
+            e.printStackTrace();
+            out.println("\nFailed insert data into DB...");
+        }
+
     }
 }
