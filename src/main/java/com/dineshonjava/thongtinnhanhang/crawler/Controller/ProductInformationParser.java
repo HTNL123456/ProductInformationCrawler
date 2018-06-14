@@ -6,6 +6,7 @@
 package com.dineshonjava.thongtinnhanhang.crawler.Controller;
 
 import com.dineshonjava.thongtinnhanhang.crawler.POJO.ProductInformation;
+import com.dineshonjava.thongtinnhanhang.crawler.Utils.StringUtils;
 import static java.lang.System.out;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -89,8 +90,33 @@ public class ProductInformationParser {
         Elements productSpecifications = doc.select("div#attributePopup div.modal-dialog div.modal-content div.modal-body table.table.attribute-table tbody tr");
         if (productSpecifications != null) {
             //Parse productBrand
-            Element productBrand = productSpecifications.get(1).selectFirst("td.attribute-value");
-            productInformation.setProductBrand(productBrand.text());
+            boolean isLabelBaoHanh = false;
+            Element lable = productSpecifications.get(0).selectFirst("th.attribute-label");
+            if (StringUtils.removeAccent(lable.text()).equals("Bao hanh (thang)")) {
+                isLabelBaoHanh = true;
+            }
+
+            if (isLabelBaoHanh) {
+                Element productBrand = productSpecifications.get(1).selectFirst("td.attribute-value");
+                productInformation.setProductBrand(productBrand.text());
+            } else {
+                Element productBrand = productSpecifications.get(0).selectFirst("td.attribute-value");
+                productInformation.setProductBrand(productBrand.text());
+            }
+//            for (String cat : productInformation.getProductCatelogies()) {
+//                if (StringUtils.removeAccent(cat).equals("Man Hinh May Tinh")) {
+//                    isComputerScreen = true;
+//                } else if (StringUtils.removeAccent(cat).equals("Card Man Hinh - VGA")) {
+//                    isVGA = true;
+//                }
+//            }
+//            if (isComputerScreen || isVGA) {
+//                Element productBrand = productSpecifications.get(0).selectFirst("td.attribute-value");
+//                productInformation.setProductBrand(productBrand.text());
+//            } else {
+//                Element productBrand = productSpecifications.get(1).selectFirst("td.attribute-value");
+//                productInformation.setProductBrand(productBrand.text());
+//            }
             out.println("\nproductBrand: " + productInformation.getProductBrand());
 
             //Specifications  
